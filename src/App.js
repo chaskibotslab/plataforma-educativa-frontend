@@ -484,6 +484,26 @@ const Home = () => {
 const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
+  // Cargar usuario del localStorage al iniciar
+  useEffect(() => {
+    const savedUser = localStorage.getItem('chaskiUser');
+    if (savedUser) {
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (error) {
+        console.error('Error parsing saved user:', error);
+        localStorage.removeItem('chaskiUser');
+      }
+    }
+  }, []);
+
+  // Guardar usuario en localStorage cuando cambie
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('chaskiUser', JSON.stringify(user));
+    }
+  }, [user]);
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('chaskiUser');

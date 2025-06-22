@@ -132,7 +132,7 @@ const GradosPage = () => {
 const LoginPage = () => {
   const { grado } = useParams();
   const navigate = useNavigate();
-  const { setUser } = React.useContext(AppContext);
+  const context = React.useContext(AppContext);
   
   const [isRegistering, setIsRegistering] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -161,7 +161,7 @@ const LoginPage = () => {
         });
         
         if (response.data.success) {
-          setUser(response.data.user);
+          context.setUser(response.data.user);
           navigate('/dashboard');
         }
       } else {
@@ -172,7 +172,7 @@ const LoginPage = () => {
         });
         
         if (response.data.success) {
-          setUser(response.data.user);
+          context.setUser(response.data.user);
           navigate('/dashboard');
         }
       }
@@ -317,7 +317,7 @@ const LoginPage = () => {
 
 // Componente de Dashboard
 const Dashboard = () => {
-  const { user, setUser } = React.useContext(AppContext);
+  const { user } = React.useContext(AppContext);
   const [cursos, setCursos] = useState([]);
   const [loading, setLoading] = useState(true);
 
